@@ -3,7 +3,21 @@ import {Link} from 'react-router-dom';
 import * as BooksAPI from '../BooksAPI';
 import BookShelf from '../components/BookShelf';
 
+const SHELVES = [
+  {
+    'title': 'Currently Reading',
+    'value': 'currentlyReading'
+  }, {
+    'title': 'Want To Read',
+    'value': 'wantToRead'
+  }, {
+    'title': 'Read',
+    'value': 'read'
+  }
+];
+
 export default class ListBooks extends Component {
+
   state = {
     allBooks: []
   }
@@ -24,9 +38,7 @@ export default class ListBooks extends Component {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        <BookShelf books={this.state.allBooks.filter(book => book.shelf === "currentlyReading")} shelfTitle="Currently Reading"/>
-        <BookShelf books={this.state.allBooks.filter(book => book.shelf === "wantToRead")} shelfTitle="Want To Read"/>
-        <BookShelf books={this.state.allBooks.filter(book => book.shelf === "read")} shelfTitle="Read"/>
+        {SHELVES.map(shelf => (<BookShelf books={this.state.allBooks.filter(book => book.shelf === shelf.value)} shelfTitle={shelf.title}/>))}
         <BookShelf books={this.state.allBooks.filter(book => book.shelf === "none")} shelfTitle="None"/>
       </div>
       <div className="open-search">
