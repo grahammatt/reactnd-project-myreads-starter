@@ -25,7 +25,14 @@ export default class ListBooks extends Component {
 
   getBooks = () => {
     BooksAPI.getAll().then(books => {
-      this.setState({ showSearchPage: false, allBooks: books });
+      this.setState({ allBooks: books });
+    });
+  };
+
+  updateBooks = (bookToUpdate, newShelf) => {
+    BooksAPI.update(bookToUpdate, newShelf).then(response => {
+      console.log(response);
+      this.getBooks();
     });
   };
 
@@ -46,6 +53,7 @@ export default class ListBooks extends Component {
                 book => book.shelf === shelf.value
               )}
               shelfTitle={shelf.title}
+              updateBooks={this.updateBooks}
             />
           ))}
           <BookShelf

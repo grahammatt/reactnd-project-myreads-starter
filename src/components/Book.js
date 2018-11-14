@@ -17,7 +17,7 @@ export default class Book extends Component {
                 backgroundImage: `url("${BOOK.imageLinks.smallThumbnail}")`
               }}
             />
-            <ShelfChanger />
+            <ShelfChanger book={BOOK} updateBooks={this.props.updateBooks} />
           </div>
           <div className="book-title">{BOOK.title}</div>
           <div className="book-authors">{BOOK.authors.toString()}</div>

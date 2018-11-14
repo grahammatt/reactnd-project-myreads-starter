@@ -20,10 +20,15 @@ const OPTIONS = [
 ];
 
 export default class ShelfChanger extends Component {
+  changeShelf = event => {
+    console.log(event);
+    this.props.updateBooks(this.props.book, event.target.value);
+  };
+
   render() {
     return (
       <div className="book-shelf-changer">
-        <select>
+        <select onChange={this.changeShelf}>
           <option value="move" disabled="disabled">
             Move to...
           </option>
