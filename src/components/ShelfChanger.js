@@ -14,7 +14,7 @@ const OPTIONS = [
     value: "read"
   },
   {
-    title: "None",
+    title: "Remove Completely",
     value: "none"
   }
 ];

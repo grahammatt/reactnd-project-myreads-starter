@@ -56,10 +56,6 @@ export default class ListBooks extends Component {
               updateBooks={this.updateBooks}
             />
           ))}
-          <BookShelf
-            books={this.state.allBooks.filter(book => book.shelf === "none")}
-            shelfTitle="None"
-          />
         </div>
         <div className="open-search">
           <Link to="/search">Add a book</Link>
