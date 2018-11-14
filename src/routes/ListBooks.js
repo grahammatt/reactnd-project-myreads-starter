@@ -49,6 +49,7 @@ export default class ListBooks extends Component {
         <div className="list-books-content">
           {SHELVES.map(shelf => (
             <BookShelf
+              key={shelf.title}
               books={this.state.allBooks.filter(
                 book => book.shelf === shelf.value
               )}
