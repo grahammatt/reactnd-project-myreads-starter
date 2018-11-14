@@ -35,7 +35,6 @@ export default class ShelfChanger extends Component {
           <option value="move" disabled="disabled">
             Move to...
           </option>
-          // TODO: filter options to remove current shelf from options
           {OPTIONS.map(option => (
             <option key={option.value} value={option.value}>
               {option.title}
