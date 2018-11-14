@@ -52,13 +52,16 @@ export default class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-
           <ol className="books-grid">
             {this.state.foundBooks.map(book => (
-              <Book key={book.id} book={book} updateBooks={this.addBook} />
+              <Book
+                key={book.id}
+                book={book}
+                updateBooks={this.addBook}
+                shelf="none"
+              />
             ))}
           </ol>
-
         </div>
       </div>
     );

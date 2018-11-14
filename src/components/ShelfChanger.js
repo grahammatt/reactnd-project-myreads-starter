@@ -14,7 +14,7 @@ const OPTIONS = [
     value: "read"
   },
   {
-    title: "Remove Completely",
+    title: "None",
     value: "none"
   }
 ];
@@ -30,7 +30,7 @@ export default class ShelfChanger extends Component {
       <div className="book-shelf-changer">
         <select
           onChange={this.changeShelf}
-          defaultValue={this.props.book.shelf}
+          defaultValue={this.props.shelf}
         >
           <option value="move" disabled="disabled">
             Move to...

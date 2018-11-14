@@ -20,8 +20,8 @@ export default class Book extends Component {
               width: 128,
               height: 193,
               backgroundImage: `url("${this.getThumbnail()}")`
-            }}/>
-          <ShelfChanger book={this.props.book} updateBooks={this.props.updateBooks}/>
+          }}/>
+          <ShelfChanger book={this.props.book} shelf={this.props.shelf} updateBooks={this.props.updateBooks}/>
         </div>
         <div className="book-title">{this.props.book.title}</div>
         <div className="book-authors">{this.getAuthors()}</div>
