@@ -5,14 +5,21 @@ import Book from "../components/Book";
 
 export default class Search extends Component {
   state = {
-    foundBooks: undefined,
-    query: ''
+    foundBooks: [],
+    query: ""
   };
 
   findBooks = query => {
-    BooksAPI.search(query).then(books => {
-      this.setState({ foundBooks: books, query: query.trim()});
-    });
+    this.setState({ query: query });
+    BooksAPI.search(query)
+      .catch(() => {
+        this.setState({ foundBooks: [] });
+      })
+      .then(books => {
+        Array.isArray(books)
+          ? this.setState({ foundBooks: books })
+          : this.setState({ foundBooks: [] });
+      });
   };
 
   addBook = (bookToAdd, shelf) => {
@@ -40,18 +47,18 @@ export default class Search extends Component {
               type="text"
               placeholder="Search by title or author"
               value={this.state.query}
-              onChange={event => this.findBooks(event.target.value)}/>
+              onChange={event => this.findBooks(event.target.value)}
+            />
           </div>
         </div>
         <div className="search-books-results">
-          {/* Short circuting To determine if books need to be displayed */}
-          {this.state.foundBooks !== undefined && (
-            <ol className="books-grid">
-              {this.state.foundBooks.map(book => (
-                <Book key={book.id} book={book} updateBooks={this.addBook} />
-              ))}
-            </ol>
-          )}
+
+          <ol className="books-grid">
+            {this.state.foundBooks.map(book => (
+              <Book key={book.id} book={book} updateBooks={this.addBook} />
+            ))}
+          </ol>
+
         </div>
       </div>
     );
