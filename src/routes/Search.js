@@ -9,29 +9,47 @@ export default class Search extends Component {
     query: ""
   };
 
+  //myBooks is used to keep track of the books in a users library.
+  //kept track of in 'this' since it does not require a rerender
   myBooks = [];
 
+  /**
+   * searches for books matching the query and updates the state
+   * @param  {String} query the term(s) entered in the search input
+   * @return update state with list of books matching query
+   */
   findBooks = query => {
+    //keep state query current
     this.setState({ query: query });
 
+    //search for books matching query using API
     BooksAPI.search(query)
+      //catch errors
       .catch(() => {
         this.setState({ foundBooks: [] });
       })
+      //when response is received
       .then(books => {
+        //if response is an array and has at least one book
         if (Array.isArray(books) && books.length > 0) {
+          //map over the response from the search
           let updatedBooks = books.map(foundBook => {
+            //filter to find a matching books in the users library
             let myBook = this.myBooks.filter(
               myBook => myBook.id === foundBook.id
             );
+            //if a book is found set the search results shelf to that in the library
+            //else set it to none
             foundBook.shelf = myBook[0] ? myBook[0].shelf : "none";
             return foundBook;
           });
+          //update the state with the results and shelf information
           return this.setState({ foundBooks: updatedBooks });
         } else return this.setState({ foundBooks: [] });
       });
   };
 
+  //get users library
   //no need for state or props as a rerender will
   //not be needed everytime a book is added to the users library
   getMyBooks = () => {
@@ -40,12 +58,14 @@ export default class Search extends Component {
     });
   };
 
+  //use api to add a book to the users library
   addBook = (bookToAdd, shelf) => {
     BooksAPI.update(bookToAdd, shelf).then(response => {
       this.getMyBooks();
     });
   };
 
+  //get user library when component mounts
   componentDidMount() {
     this.getMyBooks();
   }
@@ -75,6 +95,7 @@ export default class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
+            {/*add a book to the dom for each found book in the state*/}
             {this.state.foundBooks.map(book => (
               <Book
                 key={book.id}

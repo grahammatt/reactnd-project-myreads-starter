@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as BooksAPI from "../BooksAPI";
 import BookShelf from "../components/BookShelf";
 
+//keeping shelf data in a constant so it will be eaiser to manage in the future
 const SHELVES = [
   { title: "Currently Reading", value: "currentlyReading" },
   { title: "Want To Read", value: "wantToRead" },
@@ -19,10 +20,10 @@ export default class ListBooks extends Component {
       this.setState({ allBooks: books });
     });
   };
-
+  //function to post updated shelf information to the server
+  //passed down through props to the ShelfChanger component
   updateBooks = (bookToUpdate, newShelf) => {
     BooksAPI.update(bookToUpdate, newShelf).then(response => {
-      console.log(response);
       this.getBooks();
     });
   };
@@ -38,7 +39,9 @@ export default class ListBooks extends Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
+          {/*create shelves based on SHELVES const*/}
           {SHELVES.map(shelf => (
+            //pass down an array of books that match the current shelf
             <BookShelf
               key={shelf.title}
               books={this.state.allBooks.filter(

@@ -8,6 +8,7 @@ export default class BookShelf extends Component {
         <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
+            {/*nest a book component for each book in props.books*/}
             {this.props.books.map(book => (
               <Book
                 key={book.id}

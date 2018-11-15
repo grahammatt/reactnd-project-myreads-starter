@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import ShelfChanger from "./ShelfChanger.js";
 
 export default class Book extends Component {
+  //function to verify that the book object has a thumbnail
   getThumbnail = () => {
     return this.props.book.imageLinks
       ? this.props.book.imageLinks.thumbnail
       : null;
   };
+  //function to verify that the book object has authors and concats them
   getAuthors = () => {
     return this.props.book.authors
     ? this.props.book.authors.toString()
