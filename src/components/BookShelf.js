@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Book from "./Book";
 
+// TODO: convert from class component to stateless component
 export default class BookShelf extends Component {
   render() {
     return (

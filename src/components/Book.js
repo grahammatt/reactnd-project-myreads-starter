@@ -3,6 +3,7 @@ import ShelfChanger from "./ShelfChanger.js";
 
 export default class Book extends Component {
   //function to verify that the book object has a thumbnail
+  // TODO: replace null with default thumbnail for missing images here
   getThumbnail = () => {
     return this.props.book.imageLinks
       ? this.props.book.imageLinks.thumbnail

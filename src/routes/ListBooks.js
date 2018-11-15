@@ -22,6 +22,7 @@ export default class ListBooks extends Component {
   };
   //function to post updated shelf information to the server
   //passed down through props to the ShelfChanger component
+  // TODO: add a loading circle while updating the book.
   updateBooks = (bookToUpdate, newShelf) => {
     BooksAPI.update(bookToUpdate, newShelf).then(response => {
       this.getBooks();
