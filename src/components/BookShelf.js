@@ -13,7 +13,6 @@ export default class BookShelf extends Component {
                 key={book.id}
                 book={book}
                 updateBooks={this.props.updateBooks}
-                shelf={book.shelf}
               />
             ))}
           </ol>

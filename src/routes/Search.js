@@ -9,24 +9,46 @@ export default class Search extends Component {
     query: ""
   };
 
+  myBooks = [];
+
   findBooks = query => {
     this.setState({ query: query });
+
     BooksAPI.search(query)
       .catch(() => {
         this.setState({ foundBooks: [] });
       })
       .then(books => {
-        Array.isArray(books)
-          ? this.setState({ foundBooks: books })
-          : this.setState({ foundBooks: [] });
+        if (Array.isArray(books) && books.length > 0) {
+          let updatedBooks = books.map(foundBook => {
+            let myBook = this.myBooks.filter(
+              myBook => myBook.id === foundBook.id
+            );
+            foundBook.shelf = myBook[0] ? myBook[0].shelf : "none";
+            return foundBook;
+          });
+          return this.setState({ foundBooks: updatedBooks });
+        } else return this.setState({ foundBooks: [] });
       });
+  };
+
+  //no need for state or props as a rerender will
+  //not be needed everytime a book is added to the users library
+  getMyBooks = () => {
+    BooksAPI.getAll().then(books => {
+      this.myBooks = books;
+    });
   };
 
   addBook = (bookToAdd, shelf) => {
     BooksAPI.update(bookToAdd, shelf).then(response => {
-      console.log(response);
+      this.getMyBooks();
     });
   };
+
+  componentDidMount() {
+    this.getMyBooks();
+  }
 
   render() {
     return (
@@ -37,12 +59,12 @@ export default class Search extends Component {
           </Link>
           <div className="search-books-input-wrapper">
             {/* NOTES : The search from BooksAPI is limited to a particular set of search terms.
-              *You can find these search terms here
-              *https : //github.com/udacity / reactnd - project - myreads - starter / blob / master / SEARCH_TERMS.md
-              *However,
-              *remember that the BooksAPI.search method DOES search by title or author.So,
-              *don 't worry if you don 't find a specific author or title. Every search is limited by search terms.
-            */}
+         *You can find these search terms here
+         *https : //github.com/udacity / reactnd - project - myreads - starter / blob / master / SEARCH_TERMS.md
+         *However,
+         *remember that the BooksAPI.search method DOES search by title or author.So,
+         *don 't worry if you don 't find a specific author or title. Every search is limited by search terms.
+         */}
             <input
               type="text"
               placeholder="Search by title or author"

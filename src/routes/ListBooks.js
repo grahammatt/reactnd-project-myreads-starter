@@ -4,18 +4,9 @@ import * as BooksAPI from "../BooksAPI";
 import BookShelf from "../components/BookShelf";
 
 const SHELVES = [
-  {
-    title: "Currently Reading",
-    value: "currentlyReading"
-  },
-  {
-    title: "Want To Read",
-    value: "wantToRead"
-  },
-  {
-    title: "Read",
-    value: "read"
-  }
+  { title: "Currently Reading", value: "currentlyReading" },
+  { title: "Want To Read", value: "wantToRead" },
+  { title: "Read", value: "read" }
 ];
 
 export default class ListBooks extends Component {

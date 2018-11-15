@@ -1,22 +1,10 @@
 import React, { Component } from "react";
 
 const OPTIONS = [
-  {
-    title: "Currently Reading",
-    value: "currentlyReading"
-  },
-  {
-    title: "Want To Read",
-    value: "wantToRead"
-  },
-  {
-    title: "Read",
-    value: "read"
-  },
-  {
-    title: "None",
-    value: "none"
-  }
+  { title: "Currently Reading", value: "currentlyReading" },
+  { title: "Want To Read", value: "wantToRead" },
+  { title: "Read", value: "read" },
+  { title: "None", value: "none" }
 ];
 
 export default class ShelfChanger extends Component {
@@ -24,13 +12,12 @@ export default class ShelfChanger extends Component {
     console.log(event);
     this.props.updateBooks(this.props.book, event.target.value);
   };
-
   render() {
     return (
       <div className="book-shelf-changer">
         <select
           onChange={this.changeShelf}
-          defaultValue={this.props.shelf}
+          defaultValue={this.props.book.shelf}
         >
           <option value="move" disabled="disabled">
             Move to...
